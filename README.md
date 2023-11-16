@@ -46,6 +46,41 @@ Isso levantará o Kafka, o Jaeger e o Graylog.
 ### Configurações
 Ao iniciar os microserviços no perfil `default`, eles já estão configurados para enviar dados para o Jaeger e Graylog.
 
+## Exemplos de Chamadas
+
+Esta seção oferece exemplos de chamadas para interagir com os microserviços `pedido-api` e `estoque-api`. As chamadas a seguir demonstram como criar um pedido e consultar um produto, respectivamente.
+
+### Criar Pedido
+Para criar um novo pedido, faça uma requisição POST para `pedido-api` com os detalhes do pedido.
+
+**Endpoint**: `POST http://localhost:8080/pedidos`
+
+**Corpo da Requisição**:
+```json
+{
+    "id": "5",
+    "clienteId": "3",
+    "itens": [
+        {
+            "produtoId": "PR1",
+            "quantidade": 1
+        },
+        {
+            "produtoId": "PR2",
+            "quantidade": 1
+        }
+    ],
+    "enderecoEntrega": "Rua Teste, 1"
+}
+```
+
+### Consultar Estoque de Produto
+Para consultar o estoque de um produto específico, faça uma requisição GET para estoque-api.
+
+**Endpoint**: `GET http://localhost:8081/produtos/1`
+
+Essas chamadas ajudarão a interagir com os serviços e observar como os dados são processados e registrados em termos de tracing e logs.
+
 ## Contribuições
 Contribuições são bem-vindas! Para contribuir, por favor, siga os passos:
 1. Faça um fork do repositório.
