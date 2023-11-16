@@ -8,6 +8,13 @@ Este repositório demonstra a implementação de observabilidade em microserviç
 - **pedido-api**: Lida com a criação e gerenciamento de pedidos.
 - **Kafka**: Facilita a comunicação orientada a eventos entre os microserviços.
 
+
+## Comportamento dos Microserviços e Interatividade
+- **Criação de Pedidos**: Quando um pedido é criado, o `pedido-api` verifica o estoque para cada item do pedido com o `estoque-api`. Se algum item não estiver disponível, um erro é retornado ao cliente.
+- **Processamento e Comunicação**: Após a verificação de estoque, o pedido é registrado no banco de dados e uma mensagem é enviada ao tópico `pedidos-criados-v1` do Kafka.
+- **Consumo de Mensagens**: A `estoque-api` consome mensagens desse tópico e realiza a atualização do estoque.
+- **Simulação de Comportamento Realista**: Tanto no `estoque-api` quanto no `pedido-api`, há um atraso randômico nas respostas (entre 500ms e 5 segundos) e uma taxa de erro de 20%. Esta simulação é intencional para a visualização eficaz dos tracings e logs de erros ou lentidão.
+
 ## Quick Start
 ### Pré-Requisitos
 - Docker e Docker Compose instalados.
@@ -28,14 +35,11 @@ Este repositório demonstra a implementação de observabilidade em microserviç
 Isso levantará o Kafka, o Jaeger e o Graylog.
 
 4. Acesse a UI do Jaeger e Graylog:
-- Jaeger: `http://localhost:16686`
-- Graylog: `http://localhost:9000`
-
-Os dados de autenticação do Graylog são os seguintes:
-
-**Usuário**: admin
-
-**Senha**: admin12345678910
+    - Jaeger: `http://localhost:16686`
+    - Graylog: `http://localhost:9000`
+    - Dados de autenticação do Graylog:
+        - **Usuário**: admin
+        - **Senha**: admin12345678910
 
 5. Criar Input Gelf TCP no graylog com URL de bingding `0.0.0.0`.
 
