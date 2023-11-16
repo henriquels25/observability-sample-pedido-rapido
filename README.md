@@ -24,6 +24,7 @@ Este repositório demonstra a implementação de observabilidade em microserviç
 3. Inicie os serviços com Docker Compose:
 
 `docker-compose up -d`
+
 Isso levantará o Kafka, o Jaeger e o Graylog.
 
 4. Acesse a UI do Jaeger e Graylog:
@@ -32,8 +33,9 @@ Isso levantará o Kafka, o Jaeger e o Graylog.
 
 Os dados de autenticação do Graylog são os seguintes:
 
-Usuário: admin
-Senha: admin12345678910
+**Usuário**: admin
+
+**Senha**: admin12345678910
 
 5. Criar Input Gelf TCP no graylog com URL de bingding `0.0.0.0`.
 
