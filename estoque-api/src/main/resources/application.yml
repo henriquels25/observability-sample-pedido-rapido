@@ -1,0 +1,27 @@
+server.port: 8081
+
+spring.application.name: estoque-api
+
+management:
+  tracing:
+    enabled: true
+    sampling.probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+logging:
+  level:
+    root: INFO
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        pedidoCriadoConsumer-in-0:
+          destination: pedidos-criados-v1
+          group: estoque-api
+      kafka:
+        binder:
+          enableObservation: true
+          brokers: localhost:9092
